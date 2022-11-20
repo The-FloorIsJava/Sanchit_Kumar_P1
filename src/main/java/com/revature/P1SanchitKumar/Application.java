@@ -1,4 +1,4 @@
-package com.revature.P1SanchitKumar.Util;
+package com.revature.P1SanchitKumar;
 
 import io.javalin.Javalin;
 
