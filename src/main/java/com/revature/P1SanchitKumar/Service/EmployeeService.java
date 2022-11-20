@@ -18,7 +18,7 @@ public class EmployeeService {
     }
 
     public Employee getEmployee(String employee_username) {
-        return null;   //get back to this method
+        return employeeDAO.findByUser(employee_username);   //get back to this method
     }
 
     public void removeEmployee(String employee_username) {

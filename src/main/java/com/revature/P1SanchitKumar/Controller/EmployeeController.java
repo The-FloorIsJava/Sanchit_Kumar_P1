@@ -27,7 +27,7 @@ public class EmployeeController {
     public void employeeEndpoint() {
 
         app.get("employees", this::getAllEmployeesHandler);
-        app.get("employee/{name}", this::getSpecificEmployeeHandler);
+        app.get("employee/{username}", this::getSpecificEmployeeHandler);
 
     }
 
@@ -39,7 +39,7 @@ public class EmployeeController {
     }
 
     private void getSpecificEmployeeHandler(Context context) {
-        String employee_username = context.pathParam("employee_username");
+        String employee_username = context.pathParam("username");
         Employee employee = employeeService.getEmployee(employee_username); // get back to this
         context.json(employee);
     }

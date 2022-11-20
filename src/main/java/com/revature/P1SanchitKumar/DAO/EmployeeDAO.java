@@ -44,7 +44,45 @@ public class EmployeeDAO implements Crudable<Employee> {
 
     @Override
     public Employee findByUser(String employee_user) {
-        return null;
+
+        try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()){
+            Employee employee = new Employee();
+
+            String sql = "select * from employee where employee_username = (?)";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            // set the information for the ?
+            preparedStatement.setString(1,employee_user);
+
+//            Statement statement = connection.createStatement();
+//            ResultSet resultSet = statement.executeQuery(sql);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()) {
+                String employee_username = rs.getString("employee_username");
+                String employee_email = rs.getString("employee_email");
+                String employee_password = rs.getString("employee_password");
+                String employee_name = rs.getString("employee_name");
+                int employee_role = rs.getInt("employee_role");
+
+                employee.setEmployee_username(employee_username);
+                employee.setEmployee_email(employee_email);
+                employee.setEmployee_password(employee_password);
+                employee.setEmployee_name(employee_name);
+                employee.setEmployee_role(employee_role);
+
+
+            }
+
+
+            return employee;
+
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
