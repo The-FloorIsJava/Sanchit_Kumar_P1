@@ -72,4 +72,15 @@ public class Employee {
     public void setEmployee_role(int employee_role) {
         this.employee_role = employee_role;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employee_username='" + employee_username + '\'' +
+                ", employee_email='" + employee_email + '\'' +
+                ", employee_password='" + employee_password + '\'' +
+                ", employee_name='" + employee_name + '\'' +
+                ", employee_role=" + employee_role +
+                '}';
+    }
 }
