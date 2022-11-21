@@ -59,7 +59,7 @@ public class EmployeeDAO implements Crudable<Employee> {
 //            ResultSet resultSet = statement.executeQuery(sql);
 
             ResultSet rs = preparedStatement.executeQuery();
-
+            boolean success = false;
             while(rs.next()) {
                 String employee_username = rs.getString("employee_username");
                 String employee_email = rs.getString("employee_email");
@@ -72,12 +72,14 @@ public class EmployeeDAO implements Crudable<Employee> {
                 employee.setEmployee_password(employee_password);
                 employee.setEmployee_name(employee_name);
                 employee.setEmployee_role(employee_role);
-
+                success = true;
 
             }
 
-
-            return employee;
+            if(success)
+                return employee;
+            else
+                return null;
 
         } catch (SQLException e){
             e.printStackTrace();

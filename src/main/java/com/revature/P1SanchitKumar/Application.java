@@ -1,6 +1,7 @@
 package com.revature.P1SanchitKumar;
 
 import com.revature.P1SanchitKumar.Controller.EmployeeController;
+import com.revature.P1SanchitKumar.Controller.LoginController;
 import com.revature.P1SanchitKumar.DAO.EmployeeDAO;
 import com.revature.P1SanchitKumar.Models.Employee;
 import com.revature.P1SanchitKumar.Service.EmployeeService;
@@ -20,7 +21,7 @@ public class Application {
 //        System.out.println(employees);
 
         new EmployeeController(app).employeeEndpoint();
-
+        new LoginController(app).loginEndpoint();
 
 
     }
