@@ -14,7 +14,31 @@ public class EmployeeDAO implements Crudable<Employee> {
 
     @Override
     public Employee create(Employee newObject) {
-        return null;
+        try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()){
+
+            String sql = "INSERT INTO employee (employee_username, employee_email, employee_password, employee_name) VALUES (?, ?, ?, ?)";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, newObject.getEmployee_username());
+            preparedStatement.setString(2, newObject.getEmployee_email());
+            preparedStatement.setString(3, newObject.getEmployee_password());
+            preparedStatement.setString(4, newObject.getEmployee_name());
+
+
+            int row = preparedStatement.executeUpdate();
+
+            if(row == 1) {
+                return newObject;
+            }
+            else {
+                return null;
+            }
+
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

@@ -8,6 +8,7 @@ import com.revature.P1SanchitKumar.DAO.EmployeeDAO;
 import com.revature.P1SanchitKumar.Models.Employee;
 import com.revature.P1SanchitKumar.Service.EmployeeService;
 import com.revature.P1SanchitKumar.Service.LoginService;
+import com.revature.P1SanchitKumar.Util.DTO.CreateEmployeeCredentials;
 import com.revature.P1SanchitKumar.Util.DTO.LoginCredentials;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
@@ -29,7 +30,8 @@ public class LoginController {
 
     public void loginEndpoint() {
 
-        app.post("login",this::getLoginCredentialsHandler);
+        app.post("login",this::postLoginCredentialsHandler);
+        app.post("register",this::postRegisterHandler);
 
 
     }
@@ -63,7 +65,7 @@ public class LoginController {
 //
 //    }
 
-    private void getLoginCredentialsHandler(Context context) throws JsonProcessingException {
+    private void postLoginCredentialsHandler(Context context) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         LoginCredentials loginCredentials = mapper.readValue(context.body(), LoginCredentials.class);
         if (this.loginService.checkLogin(loginCredentials) == false) {
@@ -72,6 +74,19 @@ public class LoginController {
         else {
             context.json(String.format("Success %s", loginCredentials.getEmployee_username()));
         }
+    }
+
+    private void postRegisterHandler(Context context) throws JsonProcessingException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        CreateEmployeeCredentials createEmployeeCredentials = mapper.readValue(context.body(), CreateEmployeeCredentials.class);
+        if (this.loginService.registerEmployee(createEmployeeCredentials) == null) {
+            context.json(String.format("Failure to create employee %s.", createEmployeeCredentials.getEmployee_username()));
+        }
+        else {
+            context.json(String.format("Success %s", createEmployeeCredentials.getEmployee_username()));
+        }
+
     }
 
 
