@@ -2,6 +2,8 @@ package com.revature.P1SanchitKumar.Controller;
 
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.P1SanchitKumar.DAO.EmployeeDAO;
 import com.revature.P1SanchitKumar.Models.Employee;
 import com.revature.P1SanchitKumar.Service.EmployeeService;
@@ -32,33 +34,44 @@ public class LoginController {
 
     }
 
-    private void getLoginCredentialsHandler(Context context) {
-//        List<Employee> allEmployees = employeeService.getAllEmployees();
+//    private void getLoginCredentialsHandler(Context context) {
+////        List<Employee> allEmployees = employeeService.getAllEmployees();
+////
+////        context.json(allEmployees);
 //
-//        context.json(allEmployees);
+//        String body = context.body();
+//        StringTokenizer st = new StringTokenizer(body,"\r\n");
+//        st.nextToken();
+//        String employee_username = st.nextToken().split(":")[1].trim();
+//
+//        String employee_password = st.nextToken().split(":")[1].trim();
+//
+//        Employee employee = loginService.getEmployee(employee_username);
+//
+//        if(employee == null) {
+//            context.json(false);;
+//        }
+//
+//        else if(employee_password.equals(employee.getEmployee_password())) {
+//            context.json(true);;
+//        }
+//        else {
+//            context.json(false);;
+//        }
+//
+//
+//
+//    }
 
-        String body = context.body();
-        StringTokenizer st = new StringTokenizer(body,"\r\n");
-        st.nextToken();
-        String employee_username = st.nextToken().split(":")[1].trim();
-
-        String employee_password = st.nextToken().split(":")[1].trim();
-
-        Employee employee = loginService.getEmployee(employee_username);
-
-        if(employee == null) {
-            context.json(false);;
-        }
-
-        else if(employee_password.equals(employee.getEmployee_password())) {
-            context.json(true);;
+    private void getLoginCredentialsHandler(Context context) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        LoginCredentials loginCredentials = mapper.readValue(context.body(), LoginCredentials.class);
+        if (this.loginService.checkLogin(loginCredentials) == false) {
+            context.json(String.format("Failure to login %s.", loginCredentials.getEmployee_username()));
         }
         else {
-            context.json(false);;
+            context.json(String.format("Success %s", loginCredentials.getEmployee_username()));
         }
-
-
-
     }
 
 

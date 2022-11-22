@@ -2,6 +2,7 @@ package com.revature.P1SanchitKumar.Service;
 
 import com.revature.P1SanchitKumar.DAO.EmployeeDAO;
 import com.revature.P1SanchitKumar.Models.Employee;
+import com.revature.P1SanchitKumar.Util.DTO.LoginCredentials;
 
 import java.util.List;
 
@@ -28,5 +29,17 @@ public class LoginService {
     public List<Employee> getAllEmployees() { return employeeDAO.findAll();}
 
 
+    public boolean checkLogin(LoginCredentials loginCredentials) {
+       Employee employee =  employeeDAO.findByUser(loginCredentials.getEmployee_username());
 
+       if(employee == null) {
+           return false;
+       }
+       else if(employee.getEmployee_password().equals(loginCredentials.getEmployee_password())) {
+           return true;
+       }
+       else {
+           return false;
+       }
+    }
 }
