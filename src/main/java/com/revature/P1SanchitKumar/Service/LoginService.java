@@ -2,6 +2,7 @@ package com.revature.P1SanchitKumar.Service;
 
 import com.revature.P1SanchitKumar.DAO.EmployeeDAO;
 import com.revature.P1SanchitKumar.Models.Employee;
+import com.revature.P1SanchitKumar.Util.DTO.CreateEmployeeCredentials;
 import com.revature.P1SanchitKumar.Util.DTO.LoginCredentials;
 
 import java.util.List;
@@ -41,5 +42,12 @@ public class LoginService {
        else {
            return false;
        }
+    }
+
+    public Employee registerEmployee(CreateEmployeeCredentials createEmployeeCredentials) {
+
+        Employee employee =  employeeDAO.create(createEmployeeCredentials.getEmployee());
+
+        return employee;
     }
 }
