@@ -37,6 +37,7 @@ public class LoginService {
            return false;
        }
        else if(employee.getEmployee_password().equals(loginCredentials.getEmployee_password())) {
+           this.sessionEmployee = employee;
            return true;
        }
        else {
