@@ -15,12 +15,12 @@ import java.util.List;
 
 public class EmployeeController {
 
-    EmployeeService employeeService;
+    EmployeeService employeeService;  // put this within the main method Dependecny injection.
 
     Javalin app;
 
     public EmployeeController(Javalin app) {
-        employeeService = new EmployeeService(new EmployeeDAO()); //fix this by adding constructor in EmployeeService
+        employeeService = new EmployeeService(new EmployeeDAO()); //change this and move it to the main method and inject DAO into it.
         this.app = app;
     }
 
