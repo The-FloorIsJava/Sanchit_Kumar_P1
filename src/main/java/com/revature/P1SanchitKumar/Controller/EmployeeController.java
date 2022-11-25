@@ -4,6 +4,7 @@ import com.revature.P1SanchitKumar.DAO.EmployeeDAO;
 import com.revature.P1SanchitKumar.Models.Employee;
 import com.revature.P1SanchitKumar.Service.EmployeeService;
 
+import com.revature.P1SanchitKumar.Service.LoginService;
 import io.javalin.Javalin;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,12 +16,12 @@ import java.util.List;
 
 public class EmployeeController {
 
-    EmployeeService employeeService;  // put this within the main method Dependecny injection.
+    LoginService employeeService;  // put this within the main method Dependecny injection.
 
     Javalin app;
 
-    public EmployeeController(Javalin app) {
-        employeeService = new EmployeeService(new EmployeeDAO()); //change this and move it to the main method and inject DAO into it.
+    public EmployeeController(Javalin app , LoginService employeeService) {
+        this.employeeService = employeeService; //change this and move it to the main method and inject DAO into it.
         this.app = app;
     }
 

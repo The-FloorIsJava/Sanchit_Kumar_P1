@@ -22,9 +22,8 @@ public class LoginController {
 
     Javalin app;
 
-    public LoginController(Javalin app) {
-        //loginService = new LoginService(new EmployeeDAO()); //fix this by adding constructor in EmployeeService
-        loginService = new LoginService(new EmployeeDAO()); //fix this by adding constructor in EmployeeService
+    public LoginController(Javalin app , LoginService loginService){
+        this.loginService = loginService; //fix this by adding constructor in EmployeeService
         this.app = app;
     }
 
