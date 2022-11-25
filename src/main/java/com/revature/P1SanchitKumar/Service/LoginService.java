@@ -9,7 +9,15 @@ import java.util.List;
 
 public class LoginService {
 
-    public Employee sessionEmployee = null;
+    private Employee sessionEmployee = null;
+
+    public Employee getSessionEmployee() {
+        return sessionEmployee;
+    }
+
+    public void setSessionEmployee(Employee sessionEmployee) {
+        this.sessionEmployee = sessionEmployee;
+    }
 
     private final EmployeeDAO employeeDAO;
 
