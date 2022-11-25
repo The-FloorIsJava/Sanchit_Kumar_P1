@@ -8,6 +8,7 @@ public class CreateEmployeeCredentials {
     private String employee_email;
     private String employee_password;
     private String employee_name;
+    private int employee_role;
 
 
 
@@ -31,6 +32,14 @@ public class CreateEmployeeCredentials {
         return employee_name;
     }
 
+    public int getEmployee_role() {
+        return employee_role;
+    }
+
+    public void setEmployee_role(int employee_role) {
+        this.employee_role = employee_role;
+    }
+
     public void setEmployee_name(String employee_name) {
         this.employee_name = employee_name;
     }
@@ -45,7 +54,11 @@ public class CreateEmployeeCredentials {
 
 
     public Employee getEmployee() {
-        Employee employee = new  Employee(this.employee_username, this.employee_email, this.employee_password, this.employee_name);
+        Employee employee = new  Employee(this.employee_username, this.employee_email, this.employee_password, this.employee_name, this.employee_role);
         return employee;
+    }
+
+    public boolean isManager() {
+        return this.employee_role == 1;
     }
 }

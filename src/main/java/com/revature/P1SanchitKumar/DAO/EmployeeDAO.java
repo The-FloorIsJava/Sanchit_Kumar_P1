@@ -16,7 +16,7 @@ public class EmployeeDAO implements Crudable<Employee> {
     public Employee create(Employee newObject) {
         try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()){
 
-            String sql = "INSERT INTO employee (employee_username, employee_email, employee_password, employee_name) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO employee (employee_username, employee_email, employee_password, employee_name, employee_role) VALUES (?, ?, ?, ?, ?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
@@ -24,6 +24,7 @@ public class EmployeeDAO implements Crudable<Employee> {
             preparedStatement.setString(2, newObject.getEmployee_email());
             preparedStatement.setString(3, newObject.getEmployee_password());
             preparedStatement.setString(4, newObject.getEmployee_name());
+            preparedStatement.setInt(5, newObject.getEmployee_role());
 
 
             int row = preparedStatement.executeUpdate();
