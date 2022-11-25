@@ -4,17 +4,11 @@ package com.revature.P1SanchitKumar.Controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.P1SanchitKumar.DAO.EmployeeDAO;
-import com.revature.P1SanchitKumar.Models.Employee;
-import com.revature.P1SanchitKumar.Service.EmployeeService;
 import com.revature.P1SanchitKumar.Service.LoginService;
 import com.revature.P1SanchitKumar.Util.DTO.CreateEmployeeCredentials;
 import com.revature.P1SanchitKumar.Util.DTO.LoginCredentials;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
-
-import java.util.List;
-import java.util.StringTokenizer;
 
 public class LoginController {
 
