@@ -25,6 +25,7 @@ public class LoginController {
 
         app.post("login",this::postLoginCredentialsHandler);
         app.post("register",this::postRegisterHandler);
+        app.post("logout", this::postLogoutHandler);
 
 
     }
@@ -80,6 +81,16 @@ public class LoginController {
             context.json(String.format("Success %s", createEmployeeCredentials.getEmployee_username()));
         }
 
+    }
+
+    private void postLogoutHandler(Context context) throws JsonProcessingException {
+        if(loginService.getSessionEmployee() == null) {
+            context.json(String.format("You are not logged in " ));
+        }
+        else {
+            context.json(String.format("Logging out employee %s.", loginService.getSessionEmployee().getEmployee_username()));
+            loginService.setSessionEmployee(null);
+        }
     }
 
 
