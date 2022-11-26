@@ -52,7 +52,7 @@ public class CreateTicket {
 
 
     public Requests getRequest() {
-        Requests requests = new Requests( 0, this.employee_username, this.description, this.amount, Requests.myStatus.valueOf(this.status), this.approvedBy);
+        Requests requests = new Requests( 0, this.employee_username, this.description, this.amount, this.status, this.approvedBy);
 
         return requests;
 

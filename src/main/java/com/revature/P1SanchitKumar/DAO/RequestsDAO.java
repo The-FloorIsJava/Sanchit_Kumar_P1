@@ -14,15 +14,14 @@ public class RequestsDAO implements Crudable<Requests> {
     public Requests create(Requests newObject) {
         try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()) {
 
-            String sql = "INSERT INTO requests (employee_username, description, amount, myStatus, approvedBy) VALUES (?, ? , ?, ?, ?)";
+            String sql = "INSERT INTO requests (employee_username, description, amount,  approvedBy) VALUES (?, ? , ?, ?)";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setString(1, newObject.getEmployee_username());
             preparedStatement.setString(2, newObject.getDescription());
             preparedStatement.setDouble(3, newObject.getAmount());
-            preparedStatement.setString(4, newObject.getStatus().getStringValue());
-            preparedStatement.setString(5, newObject.getApprovedBy());
+            preparedStatement.setString(4, newObject.getApprovedBy());
 
             int row = preparedStatement.executeUpdate();
 
@@ -84,7 +83,8 @@ public class RequestsDAO implements Crudable<Requests> {
         requests.setEmployee_username(resultSet.getString("employee_username"));
         requests.setDescription(resultSet.getString("description"));
         requests.setAmount(resultSet.getDouble("amount"));
-        requests.setStatus(Requests.myStatus.valueOf(resultSet.getString("status")));
+        String value = resultSet.getString("status");
+        requests.setStatus(value);
         requests.setApprovedBy(resultSet.getString("approvedBy"));
 
         return requests;

@@ -2,6 +2,7 @@ package com.revature.P1SanchitKumar.Service;
 
 import com.revature.P1SanchitKumar.DAO.RequestsDAO;
 import com.revature.P1SanchitKumar.Models.Requests;
+import com.revature.P1SanchitKumar.Util.DTO.CreateTicket;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class RequestsService {
 
     public RequestsService(RequestsDAO requestsDAO) { this.requestsDAO = requestsDAO; }
 
-    public Requests addRequests(Requests requests) { return requestsDAO.create(requests); }
+    public Requests addRequests(CreateTicket ticket) { return requestsDAO.create(ticket.getRequest()); }
 
     public Requests getRequestsByUser(String employee_username) { return null; } // get back to this implementation
 

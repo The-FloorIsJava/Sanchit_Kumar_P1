@@ -18,8 +18,8 @@ public class RequestsController {
 
     Javalin app;
 
-    public RequestsController(Javalin app) {
-        requestsService = new RequestsService (new RequestsDAO());
+    public RequestsController(Javalin app, RequestsService requestsService) {
+        this.requestsService = requestsService;
         this.app = app;
     }
 
@@ -32,6 +32,13 @@ public class RequestsController {
     private void postTicketHandler(Context context) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         CreateTicket createTicket = mapper.readValue(context.body(), CreateTicket.class);
+        Requests requests= this.requestsService.addRequests(createTicket);
+        if (requests == null) {
+            context.json(String.format("Failure to create request %s.", createTicket.getDescription()));
+        }
+        else {
+            context.json(String.format("Success"));
+        }
     }
 
     private void getAllTicketsHandler(Context context) {

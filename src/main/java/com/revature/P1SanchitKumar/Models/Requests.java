@@ -3,15 +3,27 @@ package com.revature.P1SanchitKumar.Models;
 public class Requests {
 
     public enum myStatus {
-        PENDING("Pending"),
-        DENIED("Denied"),
-        APPROVED("Approved");
+        PENDING("pending"),
+        DENIED("denied"),
+        APPROVED("approved");
         private String value;
         private myStatus(String value){
             this.value = value;
         }
         public String getStringValue() {
             return this.value;
+        }
+        public static myStatus getEnumValue(String value) {
+            switch(value) {
+                case "pending":
+                    return myStatus.PENDING;
+                case "denied":
+                    return myStatus.DENIED;
+                case "approved":
+                    return myStatus.APPROVED;
+                default:
+                    return myStatus.PENDING;
+            }
         }
     }
 
@@ -31,12 +43,12 @@ public class Requests {
         this.approvedBy = approvedBy;
     }
 
-    public Requests(int requests_id, String employee_username, String description, double amount, myStatus status, String approvedBy) {
+    public Requests(int requests_id, String employee_username, String description, double amount, String status, String approvedBy) {
         this.requests_id = requests_id;
         this.employee_username = employee_username;
         this.description = description;
         this.amount = amount;
-        this.status = status.getStringValue();
+        this.status = status;
         this.approvedBy = approvedBy;
 
     }
@@ -77,12 +89,12 @@ public class Requests {
         this.amount = amount;
     }
 
-    public myStatus getStatus() {
-        return myStatus.valueOf(this.status);
+    public String getStatus() {
+        return this.status;
     }
 
-    public void setStatus(myStatus status) {
-        this.status = status.getStringValue();
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getApprovedBy() {
