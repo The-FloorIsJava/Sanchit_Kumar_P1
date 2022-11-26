@@ -18,11 +18,11 @@ public class Requests {
     private int requests_id;
     private String employee_username;
     private String description;
-    private int amount;
+    private double amount;
     private String status;
     private String approvedBy;
 
-    public Requests(int requests_id, String employee_username, String description, int amount, String approvedBy) {
+    public Requests(int requests_id, String employee_username, String description, double amount, String approvedBy) {
         this.requests_id = requests_id;
         this.employee_username = employee_username;
         this.description = description;
@@ -31,7 +31,7 @@ public class Requests {
         this.approvedBy = approvedBy;
     }
 
-    public Requests(int requests_id, String employee_username, String description, int amount, myStatus status, String approvedBy) {
+    public Requests(int requests_id, String employee_username, String description, double amount, myStatus status, String approvedBy) {
         this.requests_id = requests_id;
         this.employee_username = employee_username;
         this.description = description;
@@ -69,11 +69,11 @@ public class Requests {
         this.description = description;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
