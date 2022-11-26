@@ -3,16 +3,23 @@ package com.revature.P1SanchitKumar.Models;
 public class Requests {
 
     public enum myStatus {
-        PENDING,
-        DENIED,
-        APPROVED;
+        PENDING("Pending"),
+        DENIED("Denied"),
+        APPROVED("Approved");
+        private String value;
+        private myStatus(String value){
+            this.value = value;
+        }
+        public String getStringValue() {
+            return this.value;
+        }
     }
 
     private int requests_id;
     private String employee_username;
     private String description;
     private int amount;
-    private myStatus status;
+    private String status;
     private String approvedBy;
 
     public Requests(int requests_id, String employee_username, String description, int amount, String approvedBy) {
@@ -20,7 +27,7 @@ public class Requests {
         this.employee_username = employee_username;
         this.description = description;
         this.amount = amount;
-        this.status = myStatus.PENDING;
+        this.status = myStatus.PENDING.getStringValue();
         this.approvedBy = approvedBy;
     }
 
@@ -29,7 +36,7 @@ public class Requests {
         this.employee_username = employee_username;
         this.description = description;
         this.amount = amount;
-        this.status = myStatus.PENDING;
+        this.status = status.getStringValue();
         this.approvedBy = approvedBy;
 
     }
@@ -71,11 +78,11 @@ public class Requests {
     }
 
     public myStatus getStatus() {
-        return status;
+        return myStatus.valueOf(this.status);
     }
 
     public void setStatus(myStatus status) {
-        this.status = status;
+        this.status = status.getStringValue();
     }
 
     public String getApprovedBy() {
