@@ -20,14 +20,14 @@ DROP TABLE requests;
 --change the ID types to serial-- 
 -- see where to add enums -- 
 
-CREATE TYPE myStatus AS ENUM ('pending','denied','aproved');
-
+--CREATE TYPE myStatus AS ENUM ('pending','denied','aproved');--  -- might be good to do a varchar here and enum in java code--
+                                                                  -- or typecast with ::'enumname' --
 CREATE TABLE requests(
-	requests_id serial PRIMARY KEY, -- make this serial --
-	employee_username varchar(255) NOT NULL UNIQUE,
+	requests_id serial PRIMARY KEY, -- make this serial ask if needs to be in model --
+	employee_username varchar(255) NOT NULL,
 	description varchar(255),
-	amount numeric(255),
-	status myStatus DEFAULT 'pending',
+	amount numeric,
+	status varchar(255) DEFAULT 'pending',
 	approvedBy varchar(255) DEFAULT '',
 	FOREIGN KEY (approvedBy) REFERENCES employee(employee_username), -- set as a foreign key to username -- 
 	FOREIGN KEY (employee_username)  REFERENCES employee(employee_username)  -- change this to username -- 
@@ -38,9 +38,14 @@ INSERT INTO employee (employee_username, employee_email, employee_password, empl
 
 SELECT * FROM employee;
 
-INSERT INTO requests (employee_username,description,amount,status,approvedBy) VALUES ('sksk','DUBAI',5000.15,'pending',NULL);
+INSERT INTO requests (employee_username,description,amount,approvedBy) VALUES ('sksk','DUBAI',5000.15,NULL);
+INSERT INTO requests (employee_username,description,amount,status,approvedBy) VALUES ('sksk','Qatar',ROUND(5000.86,2),'pending',null);
+INSERT INTO requests (employee_username,description,amount,status,approvedBy) VALUES ('sksk','Qatar',5000.86::NUMERIC,'pending',NULL);
 
 SELECT * FROM requests;
+truncate table requests;
+
+update requests set status = 'pending', approvedBy = 'ZeldaManagerrrr'  where requests_id = '1' and status ='pending'
 
 SELECT e.*, r.* FROM employee e
 INNER JOIN requests r
@@ -49,3 +54,5 @@ ON e.employee_username = r.employee_username;
 SELECT e.*, r.* FROM requests r
 INNER JOIN employee e 
 ON r.employee_username = e.employee_username; 
+
+
