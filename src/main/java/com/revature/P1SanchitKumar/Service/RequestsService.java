@@ -16,13 +16,17 @@ public class RequestsService {
 
     public Requests addRequests(CreateTicket ticket) { return requestsDAO.create(ticket.getRequest()); }
 
-    public Requests getRequestsByUser(String employee_username) { return null; } // get back to this implementation
+    public List<Requests> getRequestsByUser(String employee_username) {
+        return requestsDAO.getRequestsForUser(employee_username);
+    }
 
     public void removeRequests(String employee_username) {
 
     }
 
-    public List<Requests> getAllRequests() { return requestsDAO.findAll(); }
+    public List<Requests> getAllRequests() {
+        return requestsDAO.findAll();
+    }
 
 
 }

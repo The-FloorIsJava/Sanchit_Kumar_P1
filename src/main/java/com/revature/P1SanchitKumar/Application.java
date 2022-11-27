@@ -23,7 +23,7 @@ public class Application {
         requestsService = new RequestsService(requestsDAO);
         new EmployeeController(app , employeeService).employeeEndpoint();
         new LoginController(app, employeeService).loginEndpoint();
-        new RequestsController(app, requestsService).requestsEndpoint();
+        new RequestsController(app, requestsService, employeeService).requestsEndpoint();
 
 
     }
