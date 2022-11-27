@@ -4,6 +4,7 @@ import com.revature.P1SanchitKumar.Models.Requests;
 
 public class UpdateTicket {
 
+    private int requests_id;
     private String employee_username;
     private String description;
     private double amount;
@@ -50,9 +51,16 @@ public class UpdateTicket {
         this.approvedBy = approvedBy;
     }
 
+    public int getRequests_id() {
+        return requests_id;
+    }
+
+    public void setRequests_id(int requests_id) {
+        this.requests_id = requests_id;
+    }
 
     public Requests getRequest() {
-        Requests requests = new Requests( 0, this.employee_username, this.description, this.amount, this.status, this.approvedBy);
+        Requests requests = new Requests( this.requests_id, this.employee_username, this.description, this.amount, this.status, this.approvedBy);
 
         return requests;
 

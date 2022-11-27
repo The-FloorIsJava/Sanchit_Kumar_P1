@@ -94,7 +94,31 @@ public class RequestsDAO implements Crudable<Requests> {
 
     @Override
     public boolean update(Requests updatedObject) {
-        return false;
+        try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()) {
+
+            String sql = "update requests set status = ?, approvedBy = ?  where requests_id = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, updatedObject.getStatus());
+            preparedStatement.setString(2, updatedObject.getApprovedBy());
+            preparedStatement.setInt(3,updatedObject.getRequests_id());
+
+
+            int row = preparedStatement.executeUpdate();
+
+            if(row == 1) {
+                return true;
+            }
+            else {
+                return false;
+            }
+
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override

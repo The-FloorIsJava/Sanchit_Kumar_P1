@@ -31,8 +31,8 @@ public class RequestsController {
     public void requestsEndpoint() {
         app.post("ticket",this::postTicketHandler);
         app.get("getTickets",this::getAllTicketsHandler);
-        app.post("approveTicket", this::postApproveTicket);
-        app.post("denyTicket", this::postDenyTicket);
+        app.post("updateTicket", this::postUpdateTicket);
+
 
     }
 
@@ -63,7 +63,7 @@ public class RequestsController {
         context.json(allTickets);
     }
 
-    private void postApproveTicket(Context context) throws JsonProcessingException {
+    private void postUpdateTicket(Context context) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         UpdateTicket updateTicket = mapper.readValue(context.body(), UpdateTicket.class);
         if(loginService.getSessionEmployee() == null) {
@@ -71,18 +71,21 @@ public class RequestsController {
             return;
         }
         if(loginService.getSessionEmployee().getEmployee_role()==MANAGER_ROLE) {
-            allTickets = requestsService.getAllRequests();
+            updateTicket.setApprovedBy(loginService.getSessionEmployee().getEmployee_username());
+            if(requestsService.updateRequest(updateTicket)){
+                context.json("Success!");
+            }
+            else {
+                context.json("Failure!");
+            }
         }
         else {
             context.json("Error, not a manger!");
         }
-        context.json(allTickets);
 
     }
 
-    private void postDenyTicket(Context context) {
 
-    }
 
 
 //    private void getSpecificRequestsHandler(Context context) {
