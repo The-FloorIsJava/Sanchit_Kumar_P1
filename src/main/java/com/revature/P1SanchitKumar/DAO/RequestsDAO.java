@@ -96,7 +96,7 @@ public class RequestsDAO implements Crudable<Requests> {
     public boolean update(Requests updatedObject) {
         try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()) {
 
-            String sql = "update requests set status = ?, approvedBy = ?  where requests_id = ?";
+            String sql = "update requests set status = ?, approvedBy = ?  where requests_id = ?  and status ='pending'";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
