@@ -10,6 +10,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RequestsDAO implements Crudable<Requests> {
+
+    public List<Requests> getRequestsForUser(String employee_user){
+        try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()){
+            List<Requests> requests = new ArrayList<>();
+
+            String sql = "select * from requests where employee_username = ?";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, employee_user);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while(resultSet.next()){
+                requests.add(convertSqlInfoToRequests(resultSet));
+            }
+
+            return requests;
+
+        } catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
     @Override
     public Requests create(Requests newObject) {
         try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()) {
@@ -44,10 +68,12 @@ public class RequestsDAO implements Crudable<Requests> {
         try(Connection connection = ConnectionFactory.getConnectionFactory().getConnection()){
             List<Requests> requests = new ArrayList<>();
 
-            String sql = "select * from requests";
+            String sql = "select * from requests where status = 'pending'";
 
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
+
+
 
             while(resultSet.next()){
                 requests.add(convertSqlInfoToRequests(resultSet));
@@ -62,9 +88,9 @@ public class RequestsDAO implements Crudable<Requests> {
     }
 
     @Override
-    public Requests findByUser(String employee_user) {
-        return null;
-    }
+    public Requests findByUser(String employee_user) { return null;}
+
+
 
     @Override
     public boolean update(Requests updatedObject) {
