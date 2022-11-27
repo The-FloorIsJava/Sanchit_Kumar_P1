@@ -8,6 +8,7 @@ import com.revature.P1SanchitKumar.Service.LoginService;
 import com.revature.P1SanchitKumar.Service.RequestsService;
 import com.revature.P1SanchitKumar.Util.DTO.CreateEmployeeCredentials;
 import com.revature.P1SanchitKumar.Util.DTO.CreateTicket;
+import com.revature.P1SanchitKumar.Util.DTO.UpdateTicket;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
@@ -30,6 +31,8 @@ public class RequestsController {
     public void requestsEndpoint() {
         app.post("ticket",this::postTicketHandler);
         app.get("getTickets",this::getAllTicketsHandler);
+        app.post("approveTicket", this::postApproveTicket);
+        app.post("denyTicket", this::postDenyTicket);
 
     }
 
@@ -58,6 +61,27 @@ public class RequestsController {
             allTickets = requestsService.getRequestsByUser(loginService.getSessionEmployee().getEmployee_username());
         }
         context.json(allTickets);
+    }
+
+    private void postApproveTicket(Context context) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        UpdateTicket updateTicket = mapper.readValue(context.body(), UpdateTicket.class);
+        if(loginService.getSessionEmployee() == null) {
+            context.json("User not logged in ");
+            return;
+        }
+        if(loginService.getSessionEmployee().getEmployee_role()==MANAGER_ROLE) {
+            allTickets = requestsService.getAllRequests();
+        }
+        else {
+            context.json("Error, not a manger!");
+        }
+        context.json(allTickets);
+
+    }
+
+    private void postDenyTicket(Context context) {
+
     }
 
 
