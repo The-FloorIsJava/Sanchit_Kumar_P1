@@ -44,6 +44,7 @@ INSERT INTO requests (employee_username,description,amount,status,approvedBy) VA
 
 SELECT * FROM requests;
 truncate table requests;
+truncate table employees; 
 
 update requests set status = 'pending', approvedBy = 'ZeldaManagerrrr'  where requests_id = '1' and status ='pending'
 
