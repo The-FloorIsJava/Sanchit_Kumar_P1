@@ -44,14 +44,14 @@ public class RequestsController {
             context.json(String.format("Failure to create request %s.", createTicket.getDescription()));
         }
         else {
-            context.json(String.format("Success"));
+            context.json(String.format("Blast off!"));
         }
     }
 
     private void getAllTicketsHandler(Context context) {
         List<Requests> allTickets = new ArrayList<>();
         if(loginService.getSessionEmployee() == null) {
-            context.json("User not logged in ");
+            context.json("Team Rocket Employee not logged in ");
             return;
         }
         if(loginService.getSessionEmployee().getEmployee_role()==MANAGER_ROLE) {
@@ -67,13 +67,13 @@ public class RequestsController {
         ObjectMapper mapper = new ObjectMapper();
         UpdateTicket updateTicket = mapper.readValue(context.body(), UpdateTicket.class);
         if(loginService.getSessionEmployee() == null) {
-            context.json("User not logged in ");
+            context.json("Team Rocket employee not logged in ");
             return;
         }
         if(loginService.getSessionEmployee().getEmployee_role()==MANAGER_ROLE) {
             updateTicket.setApprovedBy(loginService.getSessionEmployee().getEmployee_username());
             if(requestsService.updateRequest(updateTicket)){
-                context.json("Success!");
+                context.json("Blast off!");
             }
             else {
                 context.json("Failure!");

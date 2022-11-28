@@ -63,10 +63,22 @@ public class LoginController {
         ObjectMapper mapper = new ObjectMapper();
         LoginCredentials loginCredentials = mapper.readValue(context.body(), LoginCredentials.class);
         if (this.loginService.checkLogin(loginCredentials) == false) {
-            context.json(String.format("Failure to login %s.", loginCredentials.getEmployee_username()));
+            context.json(String.format("Failure to login Team Rocket employee %s.", loginCredentials.getEmployee_username()));
         }
         else {
-            context.json(String.format("Success %s", loginCredentials.getEmployee_username()));
+            context.json(String.format("`;-.          ___,\n" +
+                    "  `.`\\_...._/`.-\"`\n" +
+                    "    \\        /      ,\n" +
+                    "    /()   () \\    .' `-._\n" +
+                    "   |)  .    ()\\  /   _.'\n" +
+                    "   \\  -'-     ,; '. <\n" +
+                    "    ;.__     ,;|   > \\\n" +
+                    "   / ,    / ,  |.-'.-'\n" +
+                    "  (_/    (_/ ,;|.<`\n" +
+                    "    \\    ,     ;-`\n" +
+                    "     >   \\    /\n" +
+                    "    (_,-'`> .'\n" +
+                    "          (_, %s", loginCredentials.getEmployee_username()));
         }
     }
 
@@ -75,10 +87,19 @@ public class LoginController {
         ObjectMapper mapper = new ObjectMapper();
         CreateEmployeeCredentials createEmployeeCredentials = mapper.readValue(context.body(), CreateEmployeeCredentials.class);
         if (this.loginService.registerEmployee(createEmployeeCredentials) == null) {
-            context.json(String.format("Failure to create employee %s.", createEmployeeCredentials.getEmployee_username()));
+            context.json(String.format("Failure to create Team Rocket employee %s.", createEmployeeCredentials.getEmployee_username()));
         }
         else {
-            context.json(String.format("Success %s", createEmployeeCredentials.getEmployee_username()));
+            context.json(String.format("     " +
+                    "        |\n" +
+                    "       / \\\n" +
+                    "      / _ \\\n" +
+                    "     |.o '.|\n" +
+                    "     |'._.'|\n" +
+                    "     |     |\n" +
+                    "   ,'|  |  |`.\n" +
+                    "  /  |  |  |  \\\n" +
+                    "  |,-'--|--'-.|  %s", createEmployeeCredentials.getEmployee_username()));
         }
 
     }
@@ -88,7 +109,7 @@ public class LoginController {
             context.json(String.format("You are not logged in " ));
         }
         else {
-            context.json(String.format("Logging out employee %s.", loginService.getSessionEmployee().getEmployee_username()));
+            context.json(String.format("%s blasting off at the speed of light!", loginService.getSessionEmployee().getEmployee_username()));
             loginService.setSessionEmployee(null);
         }
     }
