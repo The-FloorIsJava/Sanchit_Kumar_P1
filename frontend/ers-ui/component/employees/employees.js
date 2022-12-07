@@ -3,10 +3,8 @@ let list = document.getElementById("employeeList");
 
 function getAllEmployees(){
      fetch(`${url}employees`, {
-         method: 'GET',
-         body: JSON.stringify({
-           
-        })
+         method: 'GET'
+    
     }
     )
     .then(response => {
@@ -17,18 +15,22 @@ function getAllEmployees(){
         }
         
         console.log(...response.headers)
-        console.log(response.json())
-        let json_data = response.json();
-        let data = [];
+        return response.json();
+    })
+    .then( data => {
 
-        for(let i in json_data)
-            data.push([i, json_data [i]]);
+
+        
+       console.log(data);
+
 
         data.forEach((item)=>{
             let li = document.createElement("li");
-            li.innerText = item;
+            li.innerText = JSON.stringify(item);
             list.appendChild(li);
           })
+
+        
        
     })
     .catch(error => {
@@ -39,3 +41,5 @@ function getAllEmployees(){
 
     
 }
+
+getAllEmployees();
