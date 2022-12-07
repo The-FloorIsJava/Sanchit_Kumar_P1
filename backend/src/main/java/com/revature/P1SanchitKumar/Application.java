@@ -16,7 +16,18 @@ public class Application {
     static RequestsService requestsService;
     static RequestsDAO requestsDAO;
     public static void main(String[] args) {
-        Javalin app = Javalin.create().start(8080);
+
+        Javalin app = Javalin.create(config -> {
+                    config.plugins.enableCors(cors ->{
+                        cors.add(it -> {
+                            it.anyHost();
+                            it.exposeHeader("Authorization");
+                        });
+                    });
+                }
+
+        ).start(8080);
+        //Javalin app = Javalin.create().start(8080);
         employeeDAO = new EmployeeDAO();
         employeeService = new LoginService(employeeDAO);
         requestsDAO = new RequestsDAO();
